@@ -20,20 +20,17 @@ public class App extends Application {
     public void start(Stage stage) {
         String javaVersion = System.getProperty("java.version");
         String javafxVersion = System.getProperty("javafx.version");
-        Label l = new Label("Hello, JavaFX " + javafxVersion + ", running on Java " + javaVersion + ".");
+        Label l = new Label("JavaFX " + javafxVersion + ", running on Java " + javaVersion + ".");
 
         BorderPane root = new BorderPane();
 
-        Scene scene = new Scene(root, 640, 480);
+        Scene scene = new Scene(root, 640, 640);
         root.setTop(l);
 
-        Canvas canvas  = new Canvas(300,300);
+        Canvas canvas  = new Canvas(600,600);
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        gc.setFill(Color.BLACK);
-        
-        gc.fillRect(0, 0, 300, 300);
 
         Label selectSize = new Label("SelectMaze Size");
 
@@ -42,9 +39,14 @@ public class App extends Application {
         Button submitButton = new Button("Enter");
         Label validation = new Label("");
 
+
         submitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
+                int x = Integer.parseInt(textField.getText());
                 validation.setText("Making a "+ textField.getText()+ "x"+ textField.getText()+ " grid");
+                AdjMatrix adj = new AdjMatrix(x,x);
+                MazeGraphics mg = new MazeGraphics();
+                mg.drawMaze(gc, adj);
             }
         });
 

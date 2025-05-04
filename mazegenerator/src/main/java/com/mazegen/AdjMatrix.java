@@ -24,19 +24,19 @@ public class AdjMatrix {
     private void basicGrid(){
         // Makes the matrix corrispond to a nxm grid.
         for (int i = 0; i < numVert; i++) {
-            for (int j = 0; j < adjMatrix.length; j++) {
+            for (int j = 0; j < numVert; j++) {
                 adjMatrix[i][j] = false;
                 if (i - 1 == j){
-                    adjMatrix[i][j] = true;
+                    adjMatrix[i][j] = false;
                 }
                 if (i + 1 == j){
-                    adjMatrix[i][j] = true;
+                    adjMatrix[i][j] = false;
                 }
                 if (i + width == j){
-                    adjMatrix[i][j] = true;
+                    adjMatrix[i][j] = false;
                 }
                 if (i - width == j){
-                    adjMatrix[i][j] = true;
+                    adjMatrix[i][j] = false;
                 }
             }
         }
@@ -44,5 +44,17 @@ public class AdjMatrix {
 
     public boolean[][] getAdjMatrix() {
         return adjMatrix;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getNumVert() {
+        return numVert;
     }
 }
