@@ -26,21 +26,22 @@ public class AdjMatrix {
         for (int i = 0; i < numVert; i++) {
             for (int j = 0; j < numVert; j++) {
                 adjMatrix[i][j] = false;
-                if (i - 1 == j){
-                    adjMatrix[i][j] = false;
-                }
-                if (i + 1 == j){
-                    adjMatrix[i][j] = false;
-                }
-                if (i + width == j){
-                    adjMatrix[i][j] = false;
-                }
-                if (i - width == j){
-                    adjMatrix[i][j] = false;
-                }
+                // if (i - 1 == j){
+                //     adjMatrix[i][j] = false;
+                // }
+                // if (i + 1 == j){
+                //     adjMatrix[i][j] = false;
+                // }
+                // if (i + width == j){
+                //     adjMatrix[i][j] = false;
+                // }
+                // if (i - width == j){
+                //     adjMatrix[i][j] = false;
+                // }
             }
         }
     }
+
 
     public boolean[][] getAdjMatrix() {
         return adjMatrix;
@@ -56,5 +57,14 @@ public class AdjMatrix {
 
     public int getNumVert() {
         return numVert;
+    }
+
+    public boolean isAdjacent(int i,int j){
+        return adjMatrix[i][j];
+    }
+
+    public void makeAdjcent(int i,int j){
+        adjMatrix[i][j] = true;
+        adjMatrix[j][i] = true;
     }
 }
