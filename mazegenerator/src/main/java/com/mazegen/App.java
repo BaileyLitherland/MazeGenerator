@@ -66,10 +66,16 @@ public class App extends Application {
         new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                mazeHandler.setSelectedBox(e.getX(), e.getY());
-                System.out.println("App.java mouse pressed event");
+                if (e.getButton() == MouseButton.PRIMARY){
+                    mazeHandler.setMazeStart(e.getX(), e.getY());
+                }
+                if (e.getButton() == MouseButton.SECONDARY){
+                    mazeHandler.setMazeEnd(e.getX(), e.getY());
+                }   
+
             }
         });
+         
       
         HBox hb = new HBox();
         VBox vb = new VBox();

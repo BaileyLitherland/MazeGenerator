@@ -10,6 +10,10 @@ public class MazeHandler{
     int GRID_MARGIN = 10;
 
     int selectedBox;
+
+    int mazeStart=-1;
+    int mazeEnd=-1;
+
     int mazeWidth;
     int mazeHeight;
     
@@ -47,25 +51,44 @@ public class MazeHandler{
         this.gridHeight = gridHeight;
     }
 
-    public void setSelectedBox(double x,double y){
+    public void setMazeStart(double x,double y){
 
         if (x > (0 * gridWidth)+GRID_MARGIN + gridWidth && x < (mazeWidth * gridWidth)+GRID_MARGIN + gridWidth 
             && y > (0 * gridHeight)+GRID_MARGIN + gridHeight && y < (mazeHeight * gridHeight)+GRID_MARGIN + gridHeight){
-                int previousSelectedBox = selectedBox;
+                int previousSelectedBox = mazeStart;
 
                 double boxXCart = Math.floor((x - (gridWidth*1.5) - GRID_MARGIN)/gridWidth + 0.5);
                 double boxYCart = Math.floor((y - (gridHeight*1.5) - GRID_MARGIN)/gridHeight + 0.5);
 
-                selectedBox = (int)boxXCart + (int)boxYCart * mazeWidth;
-                
-                highlightBox(previousSelectedBox, Color.LIGHTGRAY);
+                mazeStart = (int)boxXCart + (int)boxYCart * mazeWidth;
+ 
                 clearBox(previousSelectedBox);
-                highlightBox(selectedBox, Color.PURPLE);
+                highlightBox(mazeStart, Color.RED);
 
         }
         // double boxX = (boxXCart * gridWidth)+GRID_MARGIN + gridWidth*1.5;
         // double boxY = (boxYCart * gridHeight)+GRID_MARGIN + gridHeight*1.5;
     }
+
+    public void setMazeEnd(double x,double y){
+
+        if (x > (0 * gridWidth)+GRID_MARGIN + gridWidth && x < (mazeWidth * gridWidth)+GRID_MARGIN + gridWidth 
+        && y > (0 * gridHeight)+GRID_MARGIN + gridHeight && y < (mazeHeight * gridHeight)+GRID_MARGIN + gridHeight){
+            int previousSelectedBox = mazeEnd;
+
+            double boxXCart = Math.floor((x - (gridWidth*1.5) - GRID_MARGIN)/gridWidth + 0.5);
+            double boxYCart = Math.floor((y - (gridHeight*1.5) - GRID_MARGIN)/gridHeight + 0.5);
+
+            mazeEnd = (int)boxXCart + (int)boxYCart * mazeWidth;
+                
+            clearBox(previousSelectedBox);
+            highlightBox(mazeEnd, Color.PURPLE);
+
+        }
+        // double boxX = (boxXCart * gridWidth)+GRID_MARGIN + gridWidth*1.5;
+        // double boxY = (boxYCart * gridHeight)+GRID_MARGIN + gridHeight*1.5;
+    }
+    
     // Clear box of any highlight
     private void clearBox(int selectedBox){
         
