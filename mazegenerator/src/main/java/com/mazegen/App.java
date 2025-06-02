@@ -57,6 +57,7 @@ public class App extends Application {
                 //mazeGen.createMaze();
                 //mg.drawMaze(gc, mazeGen.createMaze());
                 mazeHandler.drawMaze();
+                
             }
         });
 
@@ -65,6 +66,7 @@ public class App extends Application {
         new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
+                mazeHandler.setSelectedBox(e.getX(), e.getY());
                 System.out.println("App.java mouse pressed event");
             }
         });

@@ -47,6 +47,39 @@ public class MazeHandler{
         this.gridHeight = gridHeight;
     }
 
+    public void setSelectedBox(double x,double y){
+
+        if (x > (0 * gridWidth)+GRID_MARGIN + gridWidth && x < (mazeWidth * gridWidth)+GRID_MARGIN + gridWidth 
+            && y > (0 * gridHeight)+GRID_MARGIN + gridHeight && y < (mazeHeight * gridHeight)+GRID_MARGIN + gridHeight){
+                int previousSelectedBox = selectedBox;
+
+                double boxXCart = Math.floor((x - (gridWidth*1.5) - GRID_MARGIN)/gridWidth + 0.5);
+                double boxYCart = Math.floor((y - (gridHeight*1.5) - GRID_MARGIN)/gridHeight + 0.5);
+
+                selectedBox = (int)boxXCart + (int)boxYCart * mazeWidth;
+                
+                highlightBox(previousSelectedBox, Color.LIGHTGRAY);
+                clearBox(previousSelectedBox);
+                highlightBox(selectedBox, Color.PURPLE);
+
+        }
+        // double boxX = (boxXCart * gridWidth)+GRID_MARGIN + gridWidth*1.5;
+        // double boxY = (boxYCart * gridHeight)+GRID_MARGIN + gridHeight*1.5;
+    }
+    // Clear box of any highlight
+    private void clearBox(int selectedBox){
+        
+        int boxXCart = selectedBox%mazeWidth;
+        int boxYCart = selectedBox/mazeWidth;
+
+        double boxX = (boxXCart * gridWidth)+GRID_MARGIN + gridWidth*1.5;
+        double boxY = (boxYCart * gridHeight)+GRID_MARGIN + gridHeight*1.5; 
+
+
+        gc.clearRect(boxX - 0.5 * (gridWidth*.95), boxY - 0.5 * (gridHeight*.95), gridWidth*.95, gridHeight*.95);
+
+      
+    }
     // Highlights the Selected Box
     private void highlightBox(int selectedBox, Color boxColour){
         
@@ -56,7 +89,11 @@ public class MazeHandler{
         double boxX = (boxXCart * gridWidth)+GRID_MARGIN + gridWidth*1.5;
         double boxY = (boxYCart * gridHeight)+GRID_MARGIN + gridHeight*1.5; 
 
-        gc.fillRect(boxXCart, boxYCart, gridWidth, gridHeight);
+        gc.setFill(boxColour);
+
+        gc.fillRect(boxX - 0.5 * (gridWidth*.95), boxY - 0.5 * (gridHeight*.95), gridWidth*.95, gridHeight*.95);
+
+        gc.setFill(Color.BLACK);        
     }
 
     // Draws the Maze Grid
@@ -66,8 +103,8 @@ public class MazeHandler{
         int canvasWidth = 600;
 
         gc.clearRect(0, 0, 600, 600);
-        double gridWidth = (canvasWidth-GRID_MARGIN*2)/(adjM.getWidth()+2);
-        double gridHeight = (canvasHeight-GRID_MARGIN*2)/(adjM.getHeight()+2);
+        gridWidth = (canvasWidth-GRID_MARGIN*2)/(adjM.getWidth()+2);
+        gridHeight = (canvasHeight-GRID_MARGIN*2)/(adjM.getHeight()+2);
 
         System.out.println(gridWidth + " is width" + gridHeight + " is height");
         System.out.println("adjm Height " + adjM.getHeight() + " adjm width:" + adjM.getWidth());
@@ -76,13 +113,12 @@ public class MazeHandler{
 
         boolean[][] am = adjM.getAdjMatrix(); 
         for (int i = 0; i < numVert; i++) {
-            //y coord =  i//adjmatrix.width * height of square
-            //x coord = i%%adjmatrix.width * width of square
+
             int boxXCart = i%adjM.getWidth();
             int boxYCart = i/adjM.getWidth();
             double boxX = (boxXCart * gridWidth)+GRID_MARGIN + gridWidth*1.5;
             double boxY = (boxYCart * gridHeight)+GRID_MARGIN + gridHeight*1.5;
-            //gc.strokeText(Integer.toString(boxXCart)+ " , " + Integer.toString(boxYCart), boxX, boxY);
+            // gc.strokeText(Integer.toString(boxXCart)+ " , " + Integer.toString(boxYCart), boxX, boxY);
             
 
             // Draw Border Lines
@@ -122,22 +158,6 @@ public class MazeHandler{
                     gc.strokeLine(boxX+.5*gridWidth, boxY+.5*gridHeight,boxX-.5*gridWidth,boxY+.5*gridHeight);
                 }
             }
-            
-            // if (i > adjMatrix.getHeight()){
-            //     if (adjM[i][i-adjMatrix.getHeight()-1] == false){
-            //         gc.strokeLine(boxX-.5*gridWidth, boxY+.5*gridHeight,boxX+.5*gridWidth,boxY+.5*gridHeight);
-            //     }
-            // }
-            // }
-            // if (adjM[i][i-1] == false){
-            //     gc.strokeLine(boxX+.5*gridWidth, boxY-.5*gridHeight,boxX+.5*gridWidth,boxY+.5*gridHeight);
-            // }7
-            //adjMatrix.getAdjMatrix()
-            // gc.strokeLine(boxX-.5*gridWidth, boxY-.5*gridHeight,boxX+.5*gridWidth,boxY-.5*gridHeight);
-            // gc.strokeLine(boxX-.5*gridWidth, boxY+.5*gridHeight,boxX+.5*gridWidth,boxY+.5*gridHeight);
-            // gc.strokeLine(boxX-.5*gridWidth, boxY-.5*gridHeight,boxX-.5*gridWidth,boxY+.5*gridHeight);
-            // gc.strokeLine(boxX+.5*gridWidth, boxY-.5*gridHeight,boxX+.5*gridWidth,boxY+.5*gridHeight);
-        
         }
 
         gc.strokeLine(canvasHeight, canvasWidth, canvasHeight, canvasWidth);
