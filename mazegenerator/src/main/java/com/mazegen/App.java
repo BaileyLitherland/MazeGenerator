@@ -9,54 +9,73 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class App extends Application {
 
+    MazeHandler mazeHandler;
+
     @Override
     public void start(Stage stage) {
-        String javaVersion = System.getProperty("java.version");
-        String javafxVersion = System.getProperty("javafx.version");
-        Label l = new Label("JavaFX " + javafxVersion + ", running on Java " + javaVersion + ".");
 
         BorderPane root = new BorderPane();
 
         Scene scene = new Scene(root, 640, 640);
-        root.setTop(l);
 
         Canvas canvas  = new Canvas(600,600);
-
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
+        Label selectWidth = new Label("SelectMaze width");
+        Label selectHeight = new Label("SelectMaze height");
 
-        Label selectSize = new Label("SelectMaze Size");
-
-        TextField textField = new TextField();
+        TextField textFieldWidth = new TextField();
+        TextField textFieldHeight = new TextField();
 
         Button submitButton = new Button("Enter");
+
         Label validation = new Label("");
 
+        mazeHandler = new MazeHandler(gc);
 
         submitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-                int x = Integer.parseInt(textField.getText());
-                validation.setText("Making a "+ textField.getText()+ "x"+ textField.getText()+ " grid");
-                AdjMatrix adj = new AdjMatrix(x,x);
-                MazeGraphics mg = new MazeGraphics();
-                mg.drawMaze(gc, adj);
+                int x = Integer.parseInt(textFieldWidth.getText());
+                int y = Integer.parseInt(textFieldHeight.getText());
+                validation.setText("Making a "+ textFieldHeight.getText()+ "x"+ textFieldWidth.getText()+ " grid");
+                mazeHandler.createAdjacencyMatrix(y,x);
+                //AdjMatrix adj = new AdjMatrix(x,y);
+                //MazeGraphics mg = new MazeGraphics();
+                mazeHandler.genMaze();
+                //MazeGenerator mazeGen = new MazeGenerator(adj);
+                //mazeGen.createMaze();
+                //mg.drawMaze(gc, mazeGen.createMaze());
+                mazeHandler.drawMaze();
             }
         });
 
+
+        canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, 
+        new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                System.out.println("App.java mouse pressed event");
+            }
+        });
       
         HBox hb = new HBox();
-
-        hb.getChildren().addAll(selectSize, textField, submitButton);
+        VBox vb = new VBox();
+        vb.getChildren().addAll(selectWidth, textFieldWidth,selectHeight ,textFieldHeight, submitButton);
+        //hb.getChildren().addAll(selectWidth, textFieldWidth,selectHeight ,textFieldHeight, submitButton);
 
         root.setCenter(canvas);
-        root.setRight(hb);
+        root.setRight(vb);
         root.setLeft(validation);
 
         stage.setScene(scene);

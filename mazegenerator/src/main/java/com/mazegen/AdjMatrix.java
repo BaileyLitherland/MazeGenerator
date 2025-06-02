@@ -26,18 +26,6 @@ public class AdjMatrix {
         for (int i = 0; i < numVert; i++) {
             for (int j = 0; j < numVert; j++) {
                 adjMatrix[i][j] = false;
-                // if (i - 1 == j){
-                //     adjMatrix[i][j] = false;
-                // }
-                // if (i + 1 == j){
-                //     adjMatrix[i][j] = false;
-                // }
-                // if (i + width == j){
-                //     adjMatrix[i][j] = false;
-                // }
-                // if (i - width == j){
-                //     adjMatrix[i][j] = false;
-                // }
             }
         }
     }
