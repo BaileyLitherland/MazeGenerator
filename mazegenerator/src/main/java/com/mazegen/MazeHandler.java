@@ -1,5 +1,7 @@
 package com.mazegen;
 
+import java.util.ArrayList;
+
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -24,9 +26,12 @@ public class MazeHandler{
 
     AdjMatrix adjM;
 
+    MazeSolver solver;
+
     public MazeHandler(GraphicsContext gc){
         this.gc = gc;
         mazeGenerator = new MazeGenerator();
+        solver = new DfsSolver();
     }
 
     // create nxm Adjacency Matrix
@@ -43,13 +48,13 @@ public class MazeHandler{
     }
 
     //* Getters and Setters*/
-    private void setGridWidth(double gridWidth){
-        this.gridWidth = gridWidth;
-    }
+    // private void setGridWidth(double gridWidth){
+    //     this.gridWidth = gridWidth;
+    // }
 
-    private void setGridHeight(double gridHeight){
-        this.gridHeight = gridHeight;
-    }
+    // private void setGridHeight(double gridHeight){
+    //     this.gridHeight = gridHeight;
+    // }
 
     public void setMazeStart(double x,double y){
 
@@ -63,7 +68,7 @@ public class MazeHandler{
                 mazeStart = (int)boxXCart + (int)boxYCart * mazeWidth;
  
                 clearBox(previousSelectedBox);
-                highlightBox(mazeStart, Color.RED);
+                highlightBox(mazeStart, Color.RED,.80);
 
         }
         // double boxX = (boxXCart * gridWidth)+GRID_MARGIN + gridWidth*1.5;
@@ -82,7 +87,7 @@ public class MazeHandler{
             mazeEnd = (int)boxXCart + (int)boxYCart * mazeWidth;
                 
             clearBox(previousSelectedBox);
-            highlightBox(mazeEnd, Color.PURPLE);
+            highlightBox(mazeEnd, Color.PURPLE, .80);
 
         }
         // double boxX = (boxXCart * gridWidth)+GRID_MARGIN + gridWidth*1.5;
@@ -99,12 +104,12 @@ public class MazeHandler{
         double boxY = (boxYCart * gridHeight)+GRID_MARGIN + gridHeight*1.5; 
 
 
-        gc.clearRect(boxX - 0.5 * (gridWidth*.95), boxY - 0.5 * (gridHeight*.95), gridWidth*.95, gridHeight*.95);
+        gc.clearRect(boxX - 0.5 * (gridWidth) +1 , boxY - 0.5 * (gridHeight) +1, gridWidth -2 , gridHeight -2);
 
       
     }
     // Highlights the Selected Box
-    private void highlightBox(int selectedBox, Color boxColour){
+    private void highlightBox(int selectedBox, Color boxColour, double sizePercentage){
         
         int boxXCart = selectedBox%mazeWidth;
         int boxYCart = selectedBox/mazeWidth;
@@ -114,7 +119,7 @@ public class MazeHandler{
 
         gc.setFill(boxColour);
 
-        gc.fillRect(boxX - 0.5 * (gridWidth*.95), boxY - 0.5 * (gridHeight*.95), gridWidth*.95, gridHeight*.95);
+        gc.fillRect(boxX - 0.5 * (gridWidth*sizePercentage), boxY - 0.5 * (gridHeight*sizePercentage), gridWidth*sizePercentage, gridHeight*sizePercentage);
 
         gc.setFill(Color.BLACK);        
     }
@@ -185,5 +190,18 @@ public class MazeHandler{
 
         gc.strokeLine(canvasHeight, canvasWidth, canvasHeight, canvasWidth);
 
+    }
+
+    public void solve(){
+        for (int i = 0; i < mazeHeight*mazeWidth; i++) {
+            clearBox(i);
+        }
+        highlightBox(mazeStart, Color.RED, .95);
+        highlightBox(mazeEnd, Color.PURPLE, .95);
+        ArrayList<Integer> results = solver.solveMaze(adjM, mazeStart, mazeEnd);
+        for (Integer integer : results) {
+            highlightBox(integer, Color.GOLDENROD,.5);
+        }
+        
     }
 }

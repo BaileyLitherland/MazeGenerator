@@ -8,6 +8,6 @@ public class DfsSolver extends MazeSolver {
         // TODO Auto-generated method stub
         
 
-        return super.solveMaze(maze);
+        return super.solveMaze(maze, start, finish);
     }
 }

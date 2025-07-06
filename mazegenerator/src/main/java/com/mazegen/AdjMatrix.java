@@ -1,5 +1,7 @@
 package com.mazegen;
 
+import java.util.ArrayList;
+
 public class AdjMatrix {
     private boolean[][] adjMatrix;
 
@@ -54,5 +56,20 @@ public class AdjMatrix {
     public void makeAdjcent(int i,int j){
         adjMatrix[i][j] = true;
         adjMatrix[j][i] = true;
+    }
+
+    public ArrayList<Integer> getAdjacent(int i){
+
+        ArrayList<Integer> adjVertex = new ArrayList<Integer>();
+        for (int j = 0; j < numVert; j++) {
+            if(isAdjacent(i, j)){
+                if(i!=j){
+                    adjVertex.add(j);
+                }
+            }
+        } 
+
+        return adjVertex;
+        
     }
 }

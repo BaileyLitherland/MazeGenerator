@@ -12,10 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
+//import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -40,9 +38,19 @@ public class App extends Application {
 
         Button submitButton = new Button("Enter");
 
+        Button solveButton = new Button("Solve");
+
         Label validation = new Label("");
 
         mazeHandler = new MazeHandler(gc);
+
+        solveButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                
+                mazeHandler.solve();
+                
+            }
+        });
 
         submitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
@@ -77,9 +85,9 @@ public class App extends Application {
         });
          
       
-        HBox hb = new HBox();
+        //HBox hb = new HBox();
         VBox vb = new VBox();
-        vb.getChildren().addAll(selectWidth, textFieldWidth,selectHeight ,textFieldHeight, submitButton);
+        vb.getChildren().addAll(selectWidth, textFieldWidth,selectHeight ,textFieldHeight, submitButton, solveButton);
         //hb.getChildren().addAll(selectWidth, textFieldWidth,selectHeight ,textFieldHeight, submitButton);
 
         root.setCenter(canvas);
