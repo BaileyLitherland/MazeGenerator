@@ -16,9 +16,11 @@ public class MazeHandler{
     int mazeStart=-1;
     int mazeEnd=-1;
 
+    // How many boxes high and wide is each maze
     int mazeWidth;
     int mazeHeight;
     
+    // How many pixles high and wide each maze box is
     double gridWidth;
     double gridHeight;
 
@@ -57,14 +59,15 @@ public class MazeHandler{
     // }
 
     public void setMazeStart(double x,double y){
-
-        if (x > (0 * gridWidth)+GRID_MARGIN + gridWidth && x < (mazeWidth * gridWidth)+GRID_MARGIN + gridWidth 
-            && y > (0 * gridHeight)+GRID_MARGIN + gridHeight && y < (mazeHeight * gridHeight)+GRID_MARGIN + gridHeight){
+        System.out.println("click");
+        if (x > (0 * gridWidth)+GRID_MARGIN && x < (mazeWidth * gridWidth)+GRID_MARGIN + gridWidth 
+            && y > (0 * gridHeight)+GRID_MARGIN && y < (mazeHeight * gridHeight)+GRID_MARGIN + gridHeight){
+                System.out.println("Click!");
                 int previousSelectedBox = mazeStart;
 
                 double boxXCart = Math.floor((x - (gridWidth*1.5) - GRID_MARGIN)/gridWidth + 0.5);
                 double boxYCart = Math.floor((y - (gridHeight*1.5) - GRID_MARGIN)/gridHeight + 0.5);
-
+                System.out.println(boxXCart +" " + boxYCart);
                 mazeStart = (int)boxXCart + (int)boxYCart * mazeWidth;
  
                 clearBox(previousSelectedBox);
@@ -131,8 +134,10 @@ public class MazeHandler{
         int canvasWidth = 600;
 
         gc.clearRect(0, 0, 600, 600);
-        gridWidth = (canvasWidth-GRID_MARGIN*2)/(adjM.getWidth()+2);
-        gridHeight = (canvasHeight-GRID_MARGIN*2)/(adjM.getHeight()+2);
+
+        //Define how wide and high each box is 
+        gridWidth = (canvasWidth-GRID_MARGIN*2)/(mazeWidth+2);
+        gridHeight = (canvasHeight-GRID_MARGIN*2)/(mazeHeight+2);
 
         System.out.println(gridWidth + " is width" + gridHeight + " is height");
         System.out.println("adjm Height " + adjM.getHeight() + " adjm width:" + adjM.getWidth());

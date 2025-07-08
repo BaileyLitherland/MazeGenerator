@@ -7,7 +7,8 @@ public abstract class MazeSolver{
 
     public ArrayList<Integer> solveMaze(AdjMatrix maze, int start, int finish){
 
-        System.out.println(finish + " " + start);
+        System.out.println("Solving the Maze using DFS. Starting at: " + start + ". Finishing at " + finish + "." );
+    
 
         boolean[] visited = new boolean[maze.getNumVert()];
         Integer[] parents = new Integer[maze.getNumVert()];
@@ -15,13 +16,12 @@ public abstract class MazeSolver{
         Stack<Integer> s = new Stack<>();
 
         s.push(start);
-        System.out.println(start);
+
         parents[start] = -1;
         int vertex;
         while (s.empty() == false){
             
             vertex = s.pop();
-            System.out.println(visited[vertex]);
             if (visited[vertex] == false){
                 visited[vertex] = true;
                 ArrayList<Integer> neighbours = maze.getAdjacent(vertex); 
