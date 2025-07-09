@@ -29,20 +29,24 @@ public abstract class MazeSolver{
                     if (visited[neighbour] == false){
                         s.push(neighbour);
                         parents[neighbour] = vertex;
-                        if (vertex == finish){
-                            int current = finish;
+                        
+                    }   
+                    if (vertex == finish){
+                        int current = finish;
+                        System.out.println("Found the finish");
                             
-                            while(current != -1){
-                                rtnArray.add(current);
-                                current = parents[current];
-                            }
-                            System.out.println(rtnArray);
-                            return rtnArray;
+                        while(current != -1){
+                            rtnArray.add(current);
+                            current = parents[current];
                         }
-                    }                     
+                        System.out.println(rtnArray);
+                        return rtnArray;
+                    }                  
                 }
             }
         }
+        System.out.println("Hereererere");
+        System.out.println(visited[finish]);
         return null;
     }
 

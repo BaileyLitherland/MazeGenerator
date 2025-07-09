@@ -88,7 +88,7 @@ public class MazeHandler{
             double boxYCart = Math.floor((y - (gridHeight*1.5) - GRID_MARGIN)/gridHeight + 0.5);
 
             mazeEnd = (int)boxXCart + (int)boxYCart * mazeWidth;
-                
+            System.out.println(adjM.getAdjacent(mazeEnd));
             clearBox(previousSelectedBox);
             highlightBox(mazeEnd, Color.PURPLE, .80);
 
@@ -201,8 +201,8 @@ public class MazeHandler{
         for (int i = 0; i < mazeHeight*mazeWidth; i++) {
             clearBox(i);
         }
-        highlightBox(mazeStart, Color.RED, .95);
-        highlightBox(mazeEnd, Color.PURPLE, .95);
+        highlightBox(mazeStart, Color.RED, .80);
+        highlightBox(mazeEnd, Color.PURPLE, .80);
         ArrayList<Integer> results = solver.solveMaze(adjM, mazeStart, mazeEnd);
         for (Integer integer : results) {
             highlightBox(integer, Color.GOLDENROD,.5);
