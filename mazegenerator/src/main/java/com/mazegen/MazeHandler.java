@@ -223,9 +223,7 @@ public class MazeHandler{
             // Draw bottom wall
             if (boxYCart < mazeHeight-1){
                 if (!adjM.isAdjacent(i, i+mazeWidth)){
-                    gc.setStroke(Color.BLUEVIOLET);
                     gc.strokeLine(boxX+.5*gridWidth, boxY+.5*gridHeight,boxX-.5*gridWidth,boxY+.5*gridHeight);
-                    gc.setStroke(Color.BLACK);
                 }
             }
         }
