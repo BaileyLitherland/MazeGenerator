@@ -6,8 +6,6 @@ TODO:
 
 Change the adjaceny matrix to only store each vertex possible neighbours. This would make the matrix nx4 not nxm where n is the larger of n and m
 
-Change the dot path of the maze solution to a line. 
-
 Give the option for more sparse mazes with more than one solution
 
 Give the option for the maze solving algorithm
