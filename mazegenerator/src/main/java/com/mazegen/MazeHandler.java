@@ -148,6 +148,25 @@ public class MazeHandler{
     private double getBoxY(int boxYCart){
         return (boxYCart * gridHeight)+GRID_MARGIN + gridHeight*.5; 
     }
+
+    // Clear Canvas
+    public void clearMaze(){
+        gc.clearRect(0, 0, 600, 600);
+    }
+
+    // Draw Solution
+    public void drawSolution(ArrayList<Integer> solutionArr){
+        gc.setStroke(Color.BLUE);
+        int prevBox = solutionArr.get(0);
+        
+        for (int i = 0; i < solutionArr.size(); i++) {
+            int boxIndex = solutionArr.get(i);
+            gc.strokeLine(getBoxX(getBoxXCartFromIndex(prevBox)), getBoxY(getBoxYCartFromIndex(prevBox)), 
+                getBoxX(getBoxXCartFromIndex(boxIndex)), getBoxY(getBoxYCartFromIndex(boxIndex)));
+            prevBox = boxIndex;
+        }
+        gc.setStroke(Color.BLACK);
+    }
     // Draws the Maze Grid
     public void drawMaze(){
         
@@ -156,7 +175,7 @@ public class MazeHandler{
         int canvasWidth = 600;
 
         // Clear the current canvas
-        gc.clearRect(0, 0, 600, 600);
+        clearMaze();
 
         //Define how wide and high each box is.
         gridWidth = (canvasWidth-GRID_MARGIN*2)/(mazeWidth);
@@ -236,12 +255,12 @@ public class MazeHandler{
         for (int i = 0; i < mazeHeight*mazeWidth; i++) {
             clearBox(i);
         }
+        
         highlightBox(mazeStart, Color.RED, .80);
         highlightBox(mazeEnd, Color.PURPLE, .80);
         ArrayList<Integer> results = solver.solveMaze(adjM, mazeStart, mazeEnd);
-        for (Integer integer : results) {
-            highlightBox(integer, Color.GOLDENROD,.5);
-        }
+
+        drawSolution(results);
         
     }
 }
