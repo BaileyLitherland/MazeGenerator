@@ -11,7 +11,7 @@ public class AdjMatrix {
 
     private int width;
 
-    public AdjMatrix( int height, int width){
+    public AdjMatrix( int width, int height){
 
         this.numVert = height * width;
 

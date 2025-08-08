@@ -33,7 +33,6 @@ public abstract class MazeSolver{
                     }   
                     if (vertex == finish){
                         int current = finish;
-                        System.out.println("Found the finish");
                             
                         while(current != -1){
                             rtnArray.add(current);
@@ -45,8 +44,7 @@ public abstract class MazeSolver{
                 }
             }
         }
-        System.out.println("Hereererere");
-        System.out.println(visited[finish]);
+
         return null;
     }
 

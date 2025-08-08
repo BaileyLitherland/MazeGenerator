@@ -56,8 +56,8 @@ public class App extends Application {
             @Override public void handle(ActionEvent e) {
                 int x = Integer.parseInt(textFieldWidth.getText());
                 int y = Integer.parseInt(textFieldHeight.getText());
-                validation.setText("Making a "+ textFieldHeight.getText()+ "x"+ textFieldWidth.getText()+ " grid");
-                mazeHandler.createAdjacencyMatrix(y,x);
+                //validation.setText("Making a "+ textFieldHeight.getText()+ "x"+ textFieldWidth.getText()+ " grid");
+                mazeHandler.createAdjacencyMatrix(x,y);
                 //AdjMatrix adj = new AdjMatrix(x,y);
                 //MazeGraphics mg = new MazeGraphics();
                 mazeHandler.genMaze();
@@ -90,6 +90,7 @@ public class App extends Application {
         vb.getChildren().addAll(selectWidth, textFieldWidth,selectHeight ,textFieldHeight, submitButton, solveButton);
         //hb.getChildren().addAll(selectWidth, textFieldWidth,selectHeight ,textFieldHeight, submitButton);
 
+        
         root.setCenter(canvas);
         root.setRight(vb);
         root.setLeft(validation);
