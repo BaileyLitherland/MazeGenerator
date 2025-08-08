@@ -177,7 +177,7 @@ public class MazeHandler{
             double boxX = getBoxX(boxXCart);
             double boxY = getBoxY(boxYCart);
             // This next line draws the coordinates of each box on the canvas
-            gc.strokeText(Integer.toString(boxXCart)+ " , " + Integer.toString(boxYCart), boxX, boxY);
+            //gc.strokeText(Integer.toString(boxXCart)+ " , " + Integer.toString(boxYCart), boxX, boxY);
             //gc.strokeText(Integer.toString(i), boxX, boxY);
             
 
