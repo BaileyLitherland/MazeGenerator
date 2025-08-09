@@ -11,3 +11,5 @@ Give the option for more sparse mazes with more than one solution
 Give the option for the maze solving algorithm
 
 Show the time it takes to generate and solve each maze
+
+Step through the maze generating algorithm

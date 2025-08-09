@@ -233,12 +233,6 @@ public class MazeHandler{
                     gc.strokeLine(boxX-.5*gridWidth, boxY-.5*gridHeight,boxX-.5*gridWidth,boxY+.5*gridHeight);
                 }
             }
-            // Draw right hand wall
-            // if (boxXCart < mazeWidth-1){
-            //     if (am[i][i+1] == false){
-            //         gc.strokeLine(boxX+.5*gridWidth, boxY-.5*gridHeight,boxX+.5*gridWidth,boxY+.5*gridHeight);
-            //     }
-            // }
             // Draw bottom wall
             if (boxYCart < mazeHeight-1){
                 if (!adjM.isAdjacent(i, i+mazeWidth)){
@@ -252,13 +246,13 @@ public class MazeHandler{
     }
 
     public void solve(){
-        for (int i = 0; i < mazeHeight*mazeWidth; i++) {
-            clearBox(i);
-        }
         
+        ArrayList<Integer> results = solver.solveMaze(adjM, mazeStart, mazeEnd);
+
+        drawMaze();
+
         highlightBox(mazeStart, Color.RED, .80);
         highlightBox(mazeEnd, Color.PURPLE, .80);
-        ArrayList<Integer> results = solver.solveMaze(adjM, mazeStart, mazeEnd);
 
         drawSolution(results);
         

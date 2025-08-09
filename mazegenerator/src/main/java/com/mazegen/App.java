@@ -3,6 +3,7 @@ package com.mazegen;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -12,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 //import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -25,7 +27,7 @@ public class App extends Application {
 
         BorderPane root = new BorderPane();
 
-        Scene scene = new Scene(root, 640, 640);
+        Scene scene = new Scene(root, 1000, 600);
 
         Canvas canvas  = new Canvas(600,600);
         GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -39,6 +41,14 @@ public class App extends Application {
         Button submitButton = new Button("Enter");
 
         Button solveButton = new Button("Solve");
+
+        Button pauseButton = new Button("||");
+
+        Button playButton = new Button("|>");
+
+        Button stepForwardButton = new Button(">");
+
+        Button fastForwardButton = new Button(">>");
 
         Label validation = new Label("");
 
@@ -85,9 +95,12 @@ public class App extends Application {
         });
          
       
-        //HBox hb = new HBox();
+        HBox hb = new HBox();
         VBox vb = new VBox();
-        vb.getChildren().addAll(selectWidth, textFieldWidth,selectHeight ,textFieldHeight, submitButton, solveButton);
+        vb.getChildren().addAll(selectWidth, textFieldWidth,selectHeight ,textFieldHeight, submitButton, solveButton,hb);
+        VBox.setMargin(hb, new Insets(10, 0, 10, 0));
+        vb.setPadding(new Insets(10,10,10,10));
+        hb.getChildren().addAll(pauseButton, playButton,stepForwardButton,fastForwardButton);
         //hb.getChildren().addAll(selectWidth, textFieldWidth,selectHeight ,textFieldHeight, submitButton);
 
         
